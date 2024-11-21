@@ -1,9 +1,9 @@
 import styled from "styled-components";
+import toast from "react-hot-toast";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { formatCurrency } from "../../utils/helpers";
 import { deleteCabin } from "../../services/apiCabins";
-import toast from "react-hot-toast";
 import { useState } from "react";
 import CreateCabinForm from "./CreateCabinForm";
 
@@ -71,7 +71,11 @@ const CabinRow = ({ cabin }) => {
         <Cabin>{name}</Cabin>
         <div>Fits upto {maxCapacity} guests</div>
         <Price>{formatCurrency(regularPrice)}</Price>
-        <Discount>{formatCurrency(discount)}</Discount>
+        {discount ? (
+          <Discount>{formatCurrency(discount)}</Discount>
+        ) : (
+          <span> &mdash; </span>
+        )}
         <div>
           <button onClick={() => setShowForm((show) => !show)}>Edit</button>
           <button onClick={() => mutate(id)} disabled={isDeleting}>
