@@ -105,6 +105,7 @@ function Toggle({ id }) {
 }
 function List({ id, children }) {
   const { openId, position, close } = useContext(MenuContext);
+  console.log("onlist",openId)
   const ref = useOutsideClick(close);
   if (openId !== id) return null;
 
@@ -127,6 +128,8 @@ function Button({ children, icon, onClick }) {
     onClick?.();
     close();
   }
+
+  console.log("reached menus button",children)
   return (
     <li>
       <StyledButton onClick={handleClick}>
