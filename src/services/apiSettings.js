@@ -1,8 +1,9 @@
 import supabase from "./supabase";
 
 export async function getSettings() {
+  console.log("reached here")
   const { data, error } = await supabase.from("settings").select("*").single();
-
+  console.log("data on api settings:", data)
   if (error) {
     console.error(error);
     throw new Error("Settings could not be loaded");
