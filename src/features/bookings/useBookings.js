@@ -31,20 +31,21 @@ function useBookings() {
   });
 
   //page count
-  const pageCount = Math.ceil(page / PAGE_SIZE);
+  const pageCount = Math.ceil(count / PAGE_SIZE);
+
   //pre fetching
   //for next pages
   if (page < pageCount)
     queryClient.prefetchQuery({
-      queryKey: ["bookings", filter, sortBy, page],
+      queryKey: ["bookings", filter, sortBy, page + 1],
       queryFn: () => getBookings({ filter, sortBy, page: page + 1 }),
     });
 
   //for previous page
   if (page > 1)
     queryClient.prefetchQuery({
-      queryKey: ["bookings", filter, sortBy, page],
-      queryFn: () => getBookings({ filter, sortBy, page: page - 1}),
+      queryKey: ["bookings", filter, sortBy, page - 1],
+      queryFn: () => getBookings({ filter, sortBy, page: page - 1 }),
     });
 
   return { isLoading, data, error, count };
